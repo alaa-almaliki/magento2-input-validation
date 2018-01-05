@@ -3,20 +3,21 @@
 namespace Alaa\RvInputValidation\Model;
 
 /**
- * Class Validation
- * @package Alaa\RvInputValidation\Model
+ * Class Validation.
+ *
  * @author Alaa Al-Maliki <alaa.almaliki@gmail.com>
  */
 class Validation implements ValidationInterface
 {
     /**
-     * Class package of the rule
+     * Class package of the rule.
      */
     const RULES_PACKAGE = 'Respect\Validation\Rules';
 
     /**
      * @param array $postData
      * @param array $ruleConfig
+     *
      * @return array
      */
     public function validatePostData(array $postData, array $ruleConfig)
@@ -43,7 +44,7 @@ class Validation implements ValidationInterface
                 }
 
                 $results = [
-                    'is_valid' => (bool) $isValid
+                    'is_valid' => (bool) $isValid,
                 ];
 
                 if ($message !== null) {
@@ -60,6 +61,7 @@ class Validation implements ValidationInterface
     /**
      * @param array $getData
      * @param array $ruleConfig
+     *
      * @return array
      */
     public function validateGetData(array $getData, array $ruleConfig)
@@ -69,7 +71,8 @@ class Validation implements ValidationInterface
 
     /**
      * @param string $input
-     * @param array $rules
+     * @param array  $rules
+     *
      * @return bool
      */
     public function validate($input, array $rules)
@@ -78,7 +81,7 @@ class Validation implements ValidationInterface
         foreach ($rules as $rule) {
             $isValid &= $this->validateInput($input, $rule);
 
-            /**
+            /*
              * Validation failed, stop validation process as no need to continue
              */
             if (!$isValid) {
@@ -91,19 +94,23 @@ class Validation implements ValidationInterface
 
     /**
      * @param string $input
-     * @param array $rule
+     * @param array  $rule
+     *
      * @return bool
      */
     public function validateInput($input, array $rule)
     {
-        $class  = $this->resolveClass($rule);
+        $class = $this->resolveClass($rule);
         $ruleInstance = $this->getRuleInstance($class, $rule);
+
         return (bool) $ruleInstance->validate($input);
     }
 
     /**
      * @param array $rule
+     *
      * @return string
+     *
      * @throws InputValidationException
      */
     protected function resolveClass(array $rule)
@@ -113,7 +120,7 @@ class Validation implements ValidationInterface
         }
 
         $ruleClass = $rule['class'];
-        $fullClassName = self::RULES_PACKAGE . '\\' . $rule['class'];
+        $fullClassName = self::RULES_PACKAGE.'\\'.$rule['class'];
         if (!class_exists($fullClassName)) {
             throw new InputValidationException(
                 sprintf('%s class is not found', $ruleClass)
@@ -126,6 +133,7 @@ class Validation implements ValidationInterface
     /**
      * @param $ruleClass
      * @param $rule
+     *
      * @return null|object
      */
     protected function getRuleInstance($ruleClass, $rule)
