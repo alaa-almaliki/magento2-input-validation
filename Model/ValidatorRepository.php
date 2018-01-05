@@ -33,6 +33,6 @@ class ValidatorRepository implements ValidatorRepositoryInterface
     {
         $rules = json_decode($rules, true);
         $input = $rules['input'];
-        return $this->validation->validateInput($input, $rules);
+        return $this->validation->validate($input, $rules['rules']);
     }
 }

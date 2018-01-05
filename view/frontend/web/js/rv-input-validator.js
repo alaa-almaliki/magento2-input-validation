@@ -5,13 +5,17 @@ define(
     return function (config, node) {
         $(node).on('blur', function () {
             var $this = $(this);
-            var data = {
-                "input": $this.val(),
-                "class": ucfirst(config['rule'])
-            };
+            var data = {"input": $this.val()};
+            var rules = config['rules'];
 
-            if (config.hasOwnProperty('args')) {
-                data['args'] = config['args'];
+            if ($.isArray(rules)) {
+                $.each(rules, function (i, rule) {
+                    rule['class'] = ucfirst(rule['rule']);
+                });
+                data['rules'] = rules;
+            } else {
+                rules['class'] = ucfirst(rules['rule']);
+                data['rules'] = [rules];
             }
 
             $.ajax({
