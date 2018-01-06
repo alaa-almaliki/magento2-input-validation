@@ -97,7 +97,6 @@ Example
     var_dump($emailGetResults);
 ```
 ## 2. Frontend
-```
 This is very simple to use in the frontend for custom forms. Like shown in the example below, it is straight forward to learn how to apply validation.
 The rules here, can be either a sinle rule and a single json object or an array of rules. 
 In the first inline method uses an array of validation rules and the second method in the init script uses a single json object to apply rules.
@@ -108,7 +107,9 @@ Once the user fills the form, then upon submitting the form will validate and co
 
 The rule has rule name which is the validation class, args which are optional and name which is optional to use in the message.
 The validation results can be overriten by overriding the `Alaa/RvInputValidation/view/frontend/web/js/rv-input-results.js`
- 
+
+Example
+```
 <form name="test_form" id="contact-form">
     <!-- Method 1 validate inline-->
     Email: <input type="text" id="email" class="input-text required" data-mage-init='{"rv-input-validator": {"rules": [{"rule": "email"}, {"rule": "NotEmpty"}], "name": "Email"}}'>
